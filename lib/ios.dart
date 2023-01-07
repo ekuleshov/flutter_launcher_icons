@@ -47,17 +47,18 @@ void createIcons(FlutterLauncherIconsConfig config, String? flavor) {
   }
   // decodeImageFile shows error message if null
   // so can return here if image is null
-  final Image? image = decodeImage(File(filePath).readAsBytesSync());
+  Image? image = decodeImage(File(filePath).readAsBytesSync());
   if (image == null) {
     return;
   }
-  if (config.removeAlphaIOS) {
-    image.channels = Channels.rgb;
-  }
-  if (image.channels == Channels.rgba) {
-    print(
-      '\nWARNING: Icons with alpha channel are not allowed in the Apple App Store.\nSet "remove_alpha_ios: true" to remove it.\n',
-    );
+  if (image.numChannels == 4) {
+    if (config.removeAlphaIOS) {
+      image = image.convert(numChannels: 3);
+    } else {
+      print(
+        '\nWARNING: Icons with alpha channel are not allowed in the Apple App Store.\nSet "remove_alpha_ios: true" to remove it.\n',
+      );
+    }
   }
   String iconName;
   final dynamic iosConfig = config.ios;
