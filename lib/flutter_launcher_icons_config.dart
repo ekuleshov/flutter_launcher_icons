@@ -184,7 +184,7 @@ class FlutterLauncherIconsConfig {
   }
 }
 
-/// A Configs for Windows
+/// A Configs for MacOS
 @JsonSerializable(
   anyMap: true,
   checked: true,
@@ -198,10 +198,14 @@ class MacOSConfig {
   @JsonKey(name: 'image_path')
   final String? imagePath;
 
+  /// Rounded corners icon for MacOS
+  final bool rounded;
+
   /// Creates a instance of [MacOSConfig]
   const MacOSConfig({
     this.generate = false,
     this.imagePath,
+    this.rounded = false,
   });
 
   /// Creates [WebConfig] from [json]

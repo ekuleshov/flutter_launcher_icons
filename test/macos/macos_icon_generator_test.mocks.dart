@@ -109,6 +109,12 @@ class MockMacOSConfig extends _i1.Mock implements _i3.MacOSConfig {
         returnValueForMissingStub: false,
       ) as bool);
   @override
+  bool get rounded => (super.noSuchMethod(
+        Invocation.getter(#rounded),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+  @override
   Map<String, dynamic> toJson() => (super.noSuchMethod(
         Invocation.method(
           #toJson,

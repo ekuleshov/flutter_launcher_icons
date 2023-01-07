@@ -42,8 +42,10 @@ class MacOSIconGenerator extends IconGenerator {
       throw FileNotFoundException(imgFilePath);
     }
 
+    final bool rounded = context.config.macOSConfig!.rounded;
+
     context.logger.verbose('Generating icons $imgFilePath...');
-    _generateIcons(imgFile);
+    _generateIcons(imgFile, rounded);
     context.logger.verbose('Updating contents.json');
     _updateContentsFile();
   }
@@ -93,10 +95,46 @@ class MacOSIconGenerator extends IconGenerator {
     return true;
   }
 
-  void _generateIcons(Image image) {
+  void _generateIcons(Image image, bool rounded) {
     final iconsDir = utils.createDirIfNotExist(
       path.join(context.prefixPath, constants.macOSIconsDirPath),
     );
+
+    if(rounded) {
+      // https://developer.apple.com/forums/thread/670578#739409022
+      // The following assumes a reference document of 1024x1024 to do your primary work.
+      // 
+      // The script arguments should be 824x824 pixels dimensions with a 185.4 corner radius.
+      // 
+      // Position the shape at the center of the canvas.
+      // This should result in exactly 100 pixels of gutter on all four sides.
+      // 
+      // Add a drop shadow with a 28-pixel radius, a 12-pixel downward Y-axis shift (no X-axis shift),
+      // a zero spread, using pure black at 50% opacity.
+
+      if (image.numChannels < 4) {
+        image.remapChannels(ChannelOrder.abgr); // add alpha channel
+      }
+
+      image = compositeImage(
+        Image(
+          width: 1024,
+          height: 1024,
+          numChannels: 4,
+          backgroundColor: ColorUint8.rgba(0, 0, 0, 0),
+        ),
+        copyResizeCropSquare(
+          image,
+          size: 824,
+          radius: 185.4,
+          interpolation:
+              image.width >= 824 ? Interpolation.average : Interpolation.linear,
+        ),
+        center: true,
+      );
+
+      image = dropShadow(image, 0, -12, 28);
+    }
 
     for (final template in _iconSizeTemplates) {
       final resizedImg = utils.createResizedImage(template.scaledSize, image);

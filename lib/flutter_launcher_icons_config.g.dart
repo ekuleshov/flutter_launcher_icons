@@ -73,6 +73,7 @@ MacOSConfig _$MacOSConfigFromJson(Map json) => $checkedCreate(
         final val = MacOSConfig(
           generate: $checkedConvert('generate', (v) => v as bool? ?? false),
           imagePath: $checkedConvert('image_path', (v) => v as String?),
+          rounded: $checkedConvert('rounded', (v) => v as bool? ?? false),
         );
         return val;
       },
@@ -83,6 +84,7 @@ Map<String, dynamic> _$MacOSConfigToJson(MacOSConfig instance) =>
     <String, dynamic>{
       'generate': instance.generate,
       'image_path': instance.imagePath,
+      'rounded': instance.rounded,
     };
 
 WebConfig _$WebConfigFromJson(Map json) => $checkedCreate(

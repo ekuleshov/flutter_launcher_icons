@@ -73,6 +73,7 @@ void main() {
           equals(<String, dynamic>{
             'generate': true,
             'image_path': 'app_icon.png',
+            'rounded': false,
           }),
         );
       });
@@ -183,6 +184,7 @@ void main() {
           equals(<String, dynamic>{
             'generate': true,
             'image_path': 'app_icon.png',
+            'rounded': false,
           }),
         );
       });
@@ -266,6 +268,7 @@ void main() {
           equals(<String, dynamic>{
             'generate': true,
             'image_path': 'app_icon.png',
+            'rounded': false,
           }),
         );
       });
