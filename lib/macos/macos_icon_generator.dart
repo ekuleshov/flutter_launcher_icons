@@ -133,7 +133,7 @@ class MacOSIconGenerator extends IconGenerator {
         center: true,
       );
 
-      image = dropShadow(image, 0, 12, 28 ~/ 2);
+      // image = dropShadow(image, 0, 12, 28 ~/ 2);
     }
 
     for (final template in _iconSizeTemplates) {
