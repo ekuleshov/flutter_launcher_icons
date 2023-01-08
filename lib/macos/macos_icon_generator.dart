@@ -126,7 +126,7 @@ class MacOSIconGenerator extends IconGenerator {
         copyResizeCropSquare(
           image,
           size: 824,
-          radius: 190, // 185.4,
+          radius: 184, // 185.4,
           interpolation:
               image.width >= 824 ? Interpolation.average : Interpolation.linear,
         ),
