@@ -1,4 +1,8 @@
 flutter_icons:
   android: true
   ios: true
+  remove_alpha_ios: true
   image_path: "assets/launcher_icon/demo-icon-dev.png"
+  macos:
+    generate: true
+    rounded: true
